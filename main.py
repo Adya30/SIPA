@@ -316,7 +316,7 @@ def quick_sort(data_list, key):
     return quick_sort(left, key) + middle + quick_sort(right, key)
 
 def binary_search(data, target):
-    hasil_index = []
+    hasil = []
     low, high = 0, len(data) - 1
     while low <= high:
         mid = (low + high) // 2
@@ -324,42 +324,42 @@ def binary_search(data, target):
         if tanggal_mid == target:
             kiri = mid
             while kiri >= 0 and datetime.strptime(data[kiri]['tanggal tanam'], '%Y-%m-%d') == target:
-                hasil_index.insert(0, kiri)
+                hasil.insert(0, kiri)
                 kiri -= 1
             kanan = mid + 1
             while kanan < len(data) and datetime.strptime(data[kanan]['tanggal tanam'], '%Y-%m-%d') == target:
-                hasil_index.append(kanan)
+                hasil.append(kanan)
                 kanan += 1
             break
         elif tanggal_mid < target:
             low = mid + 1
         else:
             high = mid - 1
-    return hasil_index
+    return hasil
 
 def jump_search(arr, x):
     n = len(arr)
     step = int(n ** 0.5)
     prev = 0
-    hasil_index = []
+    hasil = []
     while prev < n and arr[min(step, n) - 1] < x:
         prev = step
         step += int(n ** 0.5)
         if prev >= n:
-            return hasil_index
+            return hasil
     while prev < min(step, n):
         if arr[prev] == x:
-            hasil_index.append(prev)
+            hasil.append(prev)
         elif arr[prev] > x:
             break 
         prev += 1
     while step < n:
         if arr[step] == x:
-            hasil_index.append(step)
+            hasil.append(step)
         elif arr[step] > x:
             break
         step += 1
-    return hasil_index
+    return hasil
 # ======================================================================================
 def lanjut_buat_jadwal():
     os.system('cls')
@@ -455,7 +455,7 @@ def cari_dari_tanggal():
     
     hasil = binary_search(data_user, target_date)
     
-    if len(hasil) > 0:
+    if hasil:
         hasil_data = [data_user[i] for i in hasil]
         df_hasil = pd.DataFrame(hasil_data).drop('username', axis=1)
         print(tabulate(df_hasil, headers=['No'] + list(df_hasil.columns), tablefmt='fancy_grid', showindex=range(1, len(df_hasil)+1)))
@@ -478,10 +478,10 @@ def cari_dari_tanaman():
 
     tanaman_cari = input('Masukkan nama tanaman yang ingin dicari : ').title()
 
-    hasil_index = jump_search(daftar_tanaman, tanaman_cari)
+    hasil = jump_search(daftar_tanaman, tanaman_cari)
 
-    if hasil_index:
-        hasil_data = [data_user[i] for i in hasil_index]
+    if hasil:
+        hasil_data = [data_user[i] for i in hasil]
         df_hasil = pd.DataFrame(hasil_data).drop('username', axis=1)
         print(tabulate(df_hasil, headers=['No'] + list(df_hasil.columns), tablefmt='fancy_grid', showindex=range(1, len(df_hasil) + 1)))
         input('Jadwal ditemukan, tekan enter untuk kembali')
@@ -643,10 +643,10 @@ def cari_pupuk_tanam():
     tampilkan_pupuk()
     tanaman_cari = input('Masukkan nama tanaman yang ingin dicari : ').title()
 
-    hasil_index = jump_search(daftar_pupuk, tanaman_cari)
+    hasil = jump_search(daftar_pupuk, tanaman_cari)
 
-    if hasil_index:
-        hasil_data = [data_pupuk[i] for i in hasil_index]
+    if hasil:
+        hasil_data = [data_pupuk[i] for i in hasil]
         df_hasil = pd.DataFrame(hasil_data)
         print(tabulate(df_hasil, headers=['No'] + list(df_hasil.columns), tablefmt='fancy_grid', showindex=range(1, len(df_hasil) + 1)))
         input('Jadwal ditemukan, tekan enter untuk kembali')
@@ -666,10 +666,10 @@ def cari_pupuk_cuaca():
     tampilkan_pupuk()
     tanaman_cari = input('Masukkan cuaca yang ingin dicari : ').title()
 
-    hasil_index = jump_search(daftar_pupuk, tanaman_cari)
+    hasil = jump_search(daftar_pupuk, tanaman_cari)
 
-    if hasil_index:
-        hasil_data = [data_pupuk[i] for i in hasil_index]
+    if hasil:
+        hasil_data = [data_pupuk[i] for i in hasil]
         df_hasil = pd.DataFrame(hasil_data)
         print(tabulate(df_hasil, headers=['No'] + list(df_hasil.columns), tablefmt='fancy_grid', showindex=range(1, len(df_hasil) + 1)))
         input('Jadwal ditemukan, tekan enter untuk kembali')
@@ -729,10 +729,10 @@ def riwayat_dari_tanaman():
 
     tanaman_cari = input('Masukkan nama tanaman yang ingin dicari : ').title()
 
-    hasil_index = jump_search(daftar_tanaman, tanaman_cari)
+    hasil = jump_search(daftar_tanaman, tanaman_cari)
 
-    if hasil_index:
-        hasil_data = [data_user[i] for i in hasil_index]
+    if hasil:
+        hasil_data = [data_user[i] for i in hasil]
         df_hasil = pd.DataFrame(hasil_data).drop('username', axis=1)
         print(tabulate(df_hasil, headers=['No'] + list(df_hasil.columns), tablefmt='fancy_grid', showindex=range(1, len(df_hasil) + 1)))
         input('Jadwal ditemukan, tekan enter untuk kembali')
@@ -977,10 +977,10 @@ def cari_berdasarkan_username():
 
     user = input('Masukkan nama user yang ingin dicari : ')
 
-    hasil_index = jump_search(daftar_user, user)
+    hasil = jump_search(daftar_user, user)
 
-    if hasil_index:
-        hasil_data = [data_user[i] for i in hasil_index]
+    if hasil:
+        hasil_data = [data_user[i] for i in hasil]
         df_hasil = pd.DataFrame(hasil_data)
         print(tabulate(df_hasil, headers=['No'] + list(df_hasil.columns), tablefmt='fancy_grid', showindex=range(1, len(df_hasil) + 1)))
         input('Jadwal ditemukan, tekan enter untuk kembali')
