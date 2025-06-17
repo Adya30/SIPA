@@ -319,22 +319,22 @@ def binary_search(data, target):
     hasil = []
     low, high = 0, len(data) - 1
     while low <= high:
-        mid = (low + high) // 2
-        tanggal_mid = datetime.strptime(data[mid]['tanggal tanam'], '%Y-%m-%d')
-        if tanggal_mid == target:
-            kiri = mid
+        tengah = (low + high) // 2
+        tanggal = datetime.strptime(data[tengah]['tanggal tanam'], '%Y-%m-%d')
+        if tanggal == target:
+            kiri = tengah
             while kiri >= 0 and datetime.strptime(data[kiri]['tanggal tanam'], '%Y-%m-%d') == target:
                 hasil.insert(0, kiri)
                 kiri -= 1
-            kanan = mid + 1
+            kanan = tengah + 1
             while kanan < len(data) and datetime.strptime(data[kanan]['tanggal tanam'], '%Y-%m-%d') == target:
                 hasil.append(kanan)
                 kanan += 1
             break
-        elif tanggal_mid < target:
-            low = mid + 1
+        elif tanggal < target:
+            low = tengah + 1
         else:
-            high = mid - 1
+            high = tengah - 1
     return hasil
 
 def jump_search(arr, x):
