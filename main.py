@@ -415,6 +415,8 @@ def lanjut_buat_jadwal():
             buat_jadwal_tanam()
         else:
             print('Inputan invalid, ulangi')
+            os.system('cls')
+            lanjut_buat_jadwal()
 
 def lihat_jadwal_tanam():
     os.system('cls')
