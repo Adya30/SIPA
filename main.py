@@ -119,6 +119,9 @@ def register():
 
                 file_akun = pd.concat([file_akun, data_baru], ignore_index=True)
                 file_akun.to_csv('akun.csv', index=False)
+                input('Edit profil berhasil, tekan enter untuk kembali')
+                os.system('cls')
+                menu_petani()
 
             elif konfirmasi == 't' :
                 input('Silahkan tekan enter untuk kembali')
